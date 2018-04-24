@@ -37,13 +37,6 @@ create_and_start_pmm_containers()
    percona/pmm-server:latest
 }
 
-create_and_start_cassandra()
-{
-#    docker run --name cassandra1 -p 7400:7400 -d fipar/cassandra-pmm:v1
-#    Dockerfile for ^^ is at https://github.com/fipar/cassandra-docker-pmm
-    docker run --name cassandra1 --network pmm-network -d fipar/cassandra-pmm:v1
-}
-
 create_and_start_postgresql()
 {
   docker run -d \
