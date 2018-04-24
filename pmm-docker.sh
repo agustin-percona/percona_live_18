@@ -86,7 +86,7 @@ create_and_start_postgresql_exporters()
 docker exec -it postgresql /usr/local/bin/configure-pmm-client.sh
 
 ### To check if it's running correctly
-#docker exec -it clickhouse pmm-admin list
+#docker exec -it postgresql pmm-admin list
 }
 
 
