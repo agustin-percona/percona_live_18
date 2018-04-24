@@ -89,7 +89,6 @@ docker exec -it postgresql /usr/local/bin/configure-pmm-client.sh
 #docker exec -it postgresql pmm-admin list
 }
 
-
 create_and_start_clickhouse_exporters()
 {
   docker run -d \
@@ -105,3 +104,21 @@ docker exec -it clickhouse /usr/local/bin/configure-pmm-client.sh
 #docker exec -it clickhouse pmm-admin list
 }
 
+create_and_start_cassandra()
+{
+  for i in 1 2; do
+    docker run --name cassandra$i \
+      --network pmm-network \
+      -p 127.0.0.1:${i}7400:7400 \
+      -e CASSANDRA_CLUSTER_NAME=plmce \
+      -d fipar/cassandra-pmm:v1
+  done
+#docker run --name cassandra1 -p 7400:7400 -d fipar/cassandra-pmm:v1
+}
+
+create_and_start_cassandra_exporters()
+{
+  for i in 1 2; do
+    docker exec -ti cassandra$i /usr/local/bin/configure-pmm-client.sh
+  done
+}
